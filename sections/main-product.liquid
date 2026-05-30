@@ -4,13 +4,7 @@
     <div class="product-grid">
       <div class="product-image">
         {% if product.featured_image %}
-         {% if product.featured_image %}
-  <img
-    src="{{ product.featured_image | image_url: width: 1200 }}"
-    alt="{{ product.title | escape }}"
-    width="1200"
-    height="1200">
-{% endif %}
+          <img src="{{ product.featured_image | image_url: width: 1200 }}" alt="{{ product.title | escape }}">
         {% endif %}
       </div>
       <div class="product-info">
@@ -35,13 +29,7 @@
       </div>
       <div class="product-image">
         {% if product.featured_image %}
-         {% if product.featured_image %}
-  <img
-    src="{{ product.featured_image | image_url: width: 1200 }}"
-    alt="{{ product.title | escape }}"
-    width="1200"
-    height="1200">
-{% endif %}
+          <img src="{{ product.featured_image | image_url: width: 1200 }}" alt="{{ product.title | escape }}">
         {% endif %}
       </div>
     </div>
@@ -50,13 +38,7 @@
     <div class="product-grid">
       <div class="product-image">
         {% if product.featured_image %}
-          {% if product.featured_image %}
-  <img
-    src="{{ product.featured_image | image_url: width: 1200 }}"
-    alt="{{ product.title | escape }}"
-    width="1200"
-    height="1200">
-{% endif %}
+          <img src="{{ product.featured_image | image_url: width: 1200 }}" alt="{{ product.title | escape }}">
         {% endif %}
       </div>
       <div class="product-info">
@@ -76,20 +58,20 @@
 <style>
   .sleep-product {
     max-width: 1100px;
-    margin: 40px auto;
-    padding: 0 20px;
-    font-family: sans-serif;
+    margin: 60px auto;
+    padding: 0 24px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
   }
 
   .product-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 50px;
+    gap: 60px;
     align-items: center;
     background: #f0f8ff;
     border: 1px solid #b3d4f0;
-    border-radius: 16px;
-    padding: 40px;
+    border-radius: 20px;
+    padding: 50px;
   }
 
   .product-grid.reverse {
@@ -100,81 +82,121 @@
     direction: ltr;
   }
 
-  .product-image img {
+  /* Image */
+  .product-image {
     width: 100%;
-    height: auto;
-    border-radius: 12px;
-    object-fit: cover;
-    box-shadow: 0 4px 20px rgba(0, 100, 200, 0.1);
   }
 
+  .product-image img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 100, 200, 0.12);
+    display: block;
+  }
+
+  /* Info */
   .product-info {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
   }
 
   .product-info h1 {
-    font-size: 1.8rem;
+    font-size: 2rem;
+    font-weight: 700;
     color: #1a3c5e;
     margin: 0;
     line-height: 1.3;
   }
 
   .price {
-    font-size: 1.6rem;
-    font-weight: 700;
+    font-size: 1.8rem;
+    font-weight: 800;
     color: #1a7abf;
     margin: 0;
   }
 
+  /* Description */
   .description {
-    color: #444;
-    line-height: 1.7;
+    color: #4a5568;
     font-size: 0.95rem;
+    line-height: 1.8;
+    border-top: 1px solid #b3d4f0;
+    padding-top: 16px;
+  }
+
+  .description p {
+    margin: 0 0 10px 0;
+  }
+
+  .description b, .description strong {
+    color: #1a3c5e;
   }
 
   .description img {
-    max-width: 100%;
-    border-radius: 8px;
-    margin-top: 10px;
+    display: none;
   }
 
+  /* Badge */
   .badge {
     display: inline-block;
-    background: #1a7abf;
+    background: linear-gradient(135deg, #1a7abf, #1a3c5e);
     color: white;
-    padding: 6px 14px;
-    border-radius: 20px;
+    padding: 8px 18px;
+    border-radius: 25px;
     font-size: 0.8rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.5px;
     width: fit-content;
   }
 
+  /* Button */
   .add-to-cart {
     background: #1a3c5e;
     color: white;
     border: none;
-    padding: 16px 32px;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
+    padding: 18px 32px;
+    border-radius: 10px;
+    font-size: 1.05rem;
+    font-weight: 700;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.2s ease;
     width: 100%;
+    letter-spacing: 0.3px;
+    margin-top: 8px;
   }
 
   .add-to-cart:hover {
     background: #0f2a45;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(26, 60, 94, 0.3);
   }
 
+  .add-to-cart:active {
+    transform: translateY(0);
+  }
+
+  /* Mobile */
   @media (max-width: 768px) {
     .product-grid {
       grid-template-columns: 1fr;
       direction: ltr !important;
-      padding: 24px;
-      gap: 24px;
+      padding: 28px;
+      gap: 28px;
+    }
+
+    .product-image img {
+      height: 300px;
+    }
+
+    .product-info h1 {
+      font-size: 1.5rem;
+    }
+
+    .price {
+      font-size: 1.4rem;
     }
   }
 </style>
