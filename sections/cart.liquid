@@ -19,16 +19,16 @@
         {% for item in cart.items %}
           <div class="cart-item">
             <div class="cart-item-image">
-              {% if item.image %}
-                <a href="{{ item.url }}">
-                  <img
-                    src="{{ item.image | image_url: width: 200 }}"
-                    alt="{{ item.image.alt | escape }}"
-                    width="200"
-                    loading="lazy"
-                  >
-                </a>
-              {% endif %}
+             {% if item.product.featured_image %}
+             <a href="{{ item.url }}">
+               <img
+                src="{{ item.product.featured_image | image_url: width: 200 }}"
+                alt="{{ item.product.title | escape }}"
+                width="200"
+                height="200"
+               loading="lazy">
+            </a>
+{% endif %}
             </div>
 
             <div class="cart-item-details">
@@ -62,7 +62,9 @@
         <p class="cart-note">Shipping & taxes calculated at checkout</p>
         <button type="submit" name="update" class="btn-update">Update Cart</button>
         <button type="submit" name="checkout" class="btn-checkout">Proceed to Checkout →</button>
-        <a href="/collections/all" class="btn-continue">Continue Shopping</a>
+        <a href="{{ routes.all_products_collection_url }}" class="btn-continue">
+  Continue Shopping
+</a>
       </div>
     </form>
 
