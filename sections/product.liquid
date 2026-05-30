@@ -1,24 +1,20 @@
 {% comment %}
-  Product template section
+  This section is used in the product template to render product page with
+  media, content, and add-to-cart form.
+
+  https://shopify.dev/docs/storefronts/themes/architecture/templates/product
 {% endcomment %}
 
 <div class="product-images">
   {% for image in product.images %}
-    <img
-      src="{{ image | image_url: width: 800 }}"
-      alt="{{ image.alt | escape }}"
-      class="product-image"
-      loading="lazy"
-      width="800"
-      height="800"
-    >
+    {% render 'image', class: 'product-image', image: image %}
   {% endfor %}
 </div>
 
 <div class="product-info">
   <h1>{{ product.title }}</h1>
-  <p>{{ product.selected_or_first_available_variant.price | money }}</p>
-  <div>{{ product.description }}</div>
+  <p>{{ product.price | money }}</p>
+  <p>{{ product.description }}</p>
 </div>
 
 <div class="product-form">
@@ -27,29 +23,30 @@
 
     <select name="id">
       {% for variant in product.variants %}
-        <option value="{{ variant.id }}" {% if variant.id == current_variant.id %}selected{% endif %}>
+        <option
+          value="{{ variant.id }}"
+          {% if variant == current_variant %}
+            selected="selected"
+          {% endif %}
+        >
           {{ variant.title }} - {{ variant.price | money }}
         </option>
       {% endfor %}
     </select>
 
-    <input type="number" name="quantity" min="1" value="1">
+    <input type="text" name="quantity" min="1" value="1">
 
-    <button type="submit">
-      Add to Cart
-    </button>
-
+    <input type="submit" value="Add to cart">
+    {{ form | payment_button }}
   {% endform %}
 </div>
 
 {% schema %}
 {
-  "name": "Product",
+  "name": "t:general.product",
   "settings": [],
-  "presets": [
-    {
-      "name": "Product"
-    }
-  ]
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
 }
 {% endschema %}
