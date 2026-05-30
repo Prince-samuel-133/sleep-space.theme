@@ -1,19 +1,21 @@
 {% comment %}
-  This section is used in the product template to render product page with
-  media, content, and add-to-cart form.
-
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/product
+  Product template section - fixed version
 {% endcomment %}
 
 <div class="product-images">
   {% for image in product.images %}
-    {% render 'image', class: 'product-image', image: image %}
+    <img
+      src="{{ image | image_url: width: 800 }}"
+      alt="{{ image.alt | escape }}"
+      class="product-image"
+      loading="lazy"
+    >
   {% endfor %}
 </div>
 
 <div class="product-info">
   <h1>{{ product.title }}</h1>
-  <p>{{ product.price | money }}</p>
+  <p>{{ product.selected_or_first_available_variant.price | money }}</p>
   <p>{{ product.description }}</p>
 </div>
 
@@ -25,19 +27,17 @@
       {% for variant in product.variants %}
         <option
           value="{{ variant.id }}"
-          {% if variant == current_variant %}
-            selected="selected"
-          {% endif %}
+          {% if variant == current_variant %}selected="selected"{% endif %}
         >
           {{ variant.title }} - {{ variant.price | money }}
         </option>
       {% endfor %}
     </select>
 
-    <input type="text" name="quantity" min="1" value="1">
+    <input type="number" name="quantity" min="1" value="1">
 
     <input type="submit" value="Add to cart">
-    {{ form | payment_button }}
+
   {% endform %}
 </div>
 
