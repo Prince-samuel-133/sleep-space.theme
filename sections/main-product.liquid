@@ -1,49 +1,46 @@
 <div class="sleep-product">
 
   {% if product.handle == 'migraine-cap' %}
-    <!-- Migraine Cap - Image Left, Text Right -->
     <div class="product-grid">
       <div class="product-image">
-        <img src="{{ product.featured_image | img_url: '1200x' }}" alt="Migraine Cap">
+        <img src="{{ product.featured_image | image_url: width: 1200 }}" alt="{{ product.featured_image.alt | escape }}">
       </div>
       <div class="product-info">
         <h1>{{ product.title }}</h1>
-        <p class="price">{{ product.price | money }}</p>
+        <p class="price">{{ product.selected_or_first_available_variant.price | money }}</p>
         {{ product.description }}
-        <button type="submit" class="add-to-cart" onclick="addToCart({{ product.variants.first.id }})">
+        <button type="button" class="add-to-cart" onclick="addToCart({{ product.variants.first.id }})">
           Add Migraine Cap to Cart
         </button>
       </div>
     </div>
 
   {% elsif product.handle == 'sleep-speaker' %}
-    <!-- Sleep Speaker - Image Right, Text Left -->
     <div class="product-grid reverse">
       <div class="product-info">
         <h1>{{ product.title }}</h1>
-        <p class="price">{{ product.price | money }}</p>
+        <p class="price">{{ product.selected_or_first_available_variant.price | money }}</p>
         {{ product.description }}
-        <button type="submit" class="add-to-cart" onclick="addToCart({{ product.variants.first.id }})">
+        <button type="button" class="add-to-cart" onclick="addToCart({{ product.variants.first.id }})">
           Add Sleep Speaker to Cart
         </button>
       </div>
       <div class="product-image">
-        <img src="{{ product.featured_image | img_url: '1200x' }}" alt="Sleep Speaker">
+        <img src="{{ product.featured_image | image_url: width: 1200 }}" alt="{{ product.featured_image.alt | escape }}">
       </div>
     </div>
 
   {% else %}
-    <!-- Combo Kit - Image Left, Text Right -->
     <div class="product-grid">
       <div class="product-image">
-        <img src="{{ product.featured_image | img_url: '1200x' }}" alt="Sleep Space Kit">
+        <img src="{{ product.featured_image | image_url: width: 1200 }}" alt="{{ product.featured_image.alt | escape }}">
       </div>
       <div class="product-info">
         <span class="badge">Best Value • Save Money</span>
         <h1>{{ product.title }}</h1>
-        <p class="price">{{ product.price | money }}</p>
+        <p class="price">{{ product.selected_or_first_available_variant.price | money }}</p>
         {{ product.description }}
-        <button type="submit" class="add-to-cart" onclick="addToCart({{ product.variants.first.id }})">
+        <button type="button" class="add-to-cart" onclick="addToCart({{ product.variants.first.id }})">
           Add Complete Sleep Kit
         </button>
       </div>
@@ -58,8 +55,18 @@ function addToCart(variantId) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ id: variantId, quantity: 1 })
-  }).then(() => {
-    window.location.href = '/cart';
+  })
+  .then(response => {
+    if (response.ok) {
+      window.location.href = '/cart';
+    } else {
+      return response.json().then(data => {
+        alert('Could not add to cart: ' + (data.description || 'Please try again.'));
+      });
+    }
+  })
+  .catch(() => {
+    alert('Something went wrong. Please try again.');
   });
 }
 </script>
