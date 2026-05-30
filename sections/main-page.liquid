@@ -187,14 +187,12 @@
     padding: 0 24px;
   }
   .header-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 70px;
-  gap: 48px;
-
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
   }
   .logo {
     display: flex;
@@ -215,10 +213,9 @@
     justify-content: center;
   }
   .nav-links {
-  display: flex;
-  gap: 52px;
-  list-style: none;
-
+    display: flex;
+    gap: 32px;
+    list-style: none;
   }
   .nav-links a {
     font-size: 14px;
@@ -1446,163 +1443,123 @@
     </div>
     <div class="products-grid">
 
-      {%- comment -%} Product 1 — Migraine Relief Head Cap {%- endcomment -%}
-      <div class="product-card reveal reveal-delay-1">
-        <div class="product-badge-wrap">
-          <span class="badge badge-bestseller">⭐ Best Seller</span>
-          <span class="badge badge-stock">Only 14 Left</span>
-        </div>
-        <div class="product-img-wrap">
-          <svg class="product-img-icon" viewBox="0 0 90 90" fill="none">
-            <ellipse cx="45" cy="52" rx="34" ry="25" fill="#C8E9FF"/>
-            <path d="M16 47C16 33 29 22 45 22C61 22 74 33 74 47" stroke="#5ABEFF" stroke-width="4" stroke-linecap="round"/>
-            <rect x="27" y="45" width="36" height="20" rx="10" fill="#5ABEFF" opacity="0.75"/>
-            <circle cx="45" cy="55" r="7" fill="#1A7FC1"/>
-            <path d="M40 55C40 52.2 42.2 50 45 50C47.8 50 50 52.2 50 55" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
-            <path d="M16 47H11M74 47H79" stroke="#5ABEFF" stroke-width="3" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div class="product-body">
-          <h3 class="product-name">Migraine Relief Head Cap</h3>
-          <p class="product-desc">Cooling compression cap engineered to soothe migraine tension and promote faster sleep onset.</p>
-          <ul class="product-features">
-            <li>
-              <span class="check-icon">
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
-              Cooling gel technology for instant relief
-            </li>
-            <li>
-              <span class="check-icon">
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
-              Reusable — freezer &amp; microwave safe
-            </li>
-            <li>
-              <span class="check-icon">
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
-              360° adjustable, one-size-fits-most
-            </li>
-          </ul>
-          <div class="product-price-row">
-            <span class="price-current">$49</span>
-            <span class="price-old">$69</span>
-            <span class="price-save">Save $20</span>
-          </div>
-          <a href="/products/migraine-relief-head-cap" class="btn btn-cart">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2H3.4L5.6 10H12L14 5H4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="13" r="1" fill="currentColor"/><circle cx="11" cy="13" r="1" fill="currentColor"/></svg>
-            Add to Cart
-          </a>
-          <p class="product-guarantee">🔒 30-day money-back guarantee</p>
-        </div>
-      </div>
+      {%- comment -%}
+        Live Liquid loop — pulls every product from collections.all.
+        Uses the modern image_url filter (img_url is deprecated in Shopify 2.0+).
+        Add-to-cart uses fetch('/cart/add.js') so the page stays in place;
+        on success it redirects to /cart.
+      {%- endcomment -%}
+      {% assign delay_classes = "reveal-delay-1,reveal-delay-2,reveal-delay-3" | split: "," %}  
 
-      {%- comment -%} Product 2 — Sleep Speaker {%- endcomment -%}
-      <div class="product-card reveal reveal-delay-2">
-        <div class="product-badge-wrap">
-          <span class="badge badge-bestseller">🎵 Fan Favorite</span>
-        </div>
-        <div class="product-img-wrap">
-          <svg class="product-img-icon" viewBox="0 0 90 90" fill="none">
-            <rect x="22" y="28" width="46" height="34" rx="12" fill="#C8E9FF"/>
-            <rect x="28" y="34" width="34" height="22" rx="8" fill="#5ABEFF" opacity="0.6"/>
-            <circle cx="45" cy="45" r="8" fill="#1A7FC1"/>
-            <circle cx="45" cy="45" r="4" fill="white" opacity="0.7"/>
-            <path d="M33 38C35 35 39 33 45 33" stroke="#5ABEFF" stroke-width="2" stroke-linecap="round"/>
-            <path d="M57 38C55 35 51 33 45 33" stroke="#5ABEFF" stroke-width="2" stroke-linecap="round"/>
-            <path d="M30 62h30" stroke="#8FD3FF" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="36" cy="65" r="2" fill="#5ABEFF"/>
-            <circle cx="54" cy="65" r="2" fill="#5ABEFF"/>
-          </svg>
-        </div>
-        <div class="product-body">
-          <h3 class="product-name">Sleep Speaker</h3>
-          <p class="product-desc">Ultra-flat Bluetooth speaker designed to play while you sleep — placed under your pillow or beside you.</p>
-          <ul class="product-features">
-            <li>
-              <span class="check-icon">
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
-              Bluetooth 5.0 — 10m wireless range
-            </li>
-            <li>
-              <span class="check-icon">
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
-              12-hour battery life — sleep all night
-            </li>
-            <li>
-              <span class="check-icon">
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
-              Ultra-thin, whisper-soft enclosure
-            </li>
-          </ul>
-          <div class="product-price-row">
-            <span class="price-current">$39</span>
-            <span class="price-old">$55</span>
-            <span class="price-save">Save $16</span>
-          </div>
-          <a href="/products/sleep-speaker" class="btn btn-cart">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2H3.4L5.6 10H12L14 5H4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="13" r="1" fill="currentColor"/><circle cx="11" cy="13" r="1" fill="currentColor"/></svg>
-            Add to Cart
-          </a>
-          <p class="product-guarantee">🔒 30-day money-back guarantee</p>
-        </div>
-      </div>
+      {%- for product in collections.all.products -%}
+        {% assign delay_index = forloop.index0 | modulo: 3 %}
+        {% assign delay = delay_classes[delay_index] %}
+        {%- assign variant = product.selected_or_first_available_variant -%}
+        {%- assign has_compare = false -%}
+        {%- if variant.compare_at_price > variant.price -%}
+          {%- assign has_compare = true -%}
+          {%- assign savings = variant.compare_at_price | minus: variant.price -%}
+        {%- endif -%}
 
-      {%- comment -%} Product 3 — Sleep Bundle Kit {%- endcomment -%}
-      <div class="product-card reveal reveal-delay-3" style="border: 2px solid var(--blue-mid);">
-        <div class="product-badge-wrap">
-          <span class="badge badge-bundle">💎 Best Value</span>
-          <span class="badge badge-stock">Only 7 Left</span>
-        </div>
-        <div class="product-img-wrap" style="background: linear-gradient(135deg, #C5EAFF 0%, #8FD3FF 100%);">
-          <svg class="product-img-icon" viewBox="0 0 90 90" fill="none">
-            <ellipse cx="32" cy="52" rx="22" ry="16" fill="white" opacity="0.5"/>
-            <path d="M14 48C14 38 22 31 32 31C42 31 50 38 50 48" stroke="white" stroke-width="3" stroke-linecap="round"/>
-            <rect x="20" y="46" width="24" height="13" rx="6.5" fill="white" opacity="0.8"/>
-            <rect x="52" y="36" width="28" height="22" rx="7" fill="white" opacity="0.5"/>
-            <circle cx="66" cy="47" r="6" fill="white" opacity="0.8"/>
-            <circle cx="66" cy="47" r="3" fill="#5ABEFF"/>
-          </svg>
-        </div>
-        <div class="product-body">
-          <h3 class="product-name">Sleep Bundle Kit</h3>
-          <p class="product-desc">The complete Sleep Space system — Head Cap + Sleep Speaker together for the ultimate sleep upgrade.</p>
-          <ul class="product-features">
-            <li>
-              <span class="check-icon">
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
-              Includes Migraine Relief Head Cap
-            </li>
-            <li>
-              <span class="check-icon">
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
-              Includes Sleep Speaker
-            </li>
-            <li>
-              <span class="check-icon">
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
-              Save $40 vs. buying separately
-            </li>
-          </ul>
-          <div class="product-price-row">
-            <span class="price-current">$79</span>
-            <span class="price-old">$119</span>
-            <span class="price-save">Save $40 🎉</span>
+        <div class="product-card reveal {{ delay }}">
+
+          {%- comment -%} Badge row — first product gets Best Seller; last gets Best Value {%- endcomment -%}
+          <div class="product-badge-wrap">
+            {%- if forloop.first -%}
+              <span class="badge badge-bestseller">⭐ Best Seller</span>
+            {%- elsif forloop.last -%}
+              <span class="badge badge-bundle">💎 Best Value</span>
+            {%- else -%}
+              <span class="badge badge-bestseller">🎵 Fan Favorite</span>
+            {%- endif -%}
+            {%- if variant.inventory_quantity > 0 and variant.inventory_quantity <= 15 -%}
+              <span class="badge badge-stock">Only {{ variant.inventory_quantity }} Left</span>
+            {%- endif -%}
           </div>
-          <a href="/products/sleep-bundle-kit" class="btn btn-cart">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2H3.4L5.6 10H12L14 5H4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="13" r="1" fill="currentColor"/><circle cx="11" cy="13" r="1" fill="currentColor"/></svg>
-            Add Bundle to Cart
+
+          {%- comment -%} Product image — links to product page {%- endcomment -%}
+          <a href="{{ product.url }}" class="product-img-wrap" style="display:flex; align-items:center; justify-content:center;">
+            {%- if product.featured_image -%}
+              <img
+                src="{{ product.featured_image | image_url: width: 800 }}"
+                alt="{{ product.featured_image.alt | escape | default: product.title | escape }}"
+                width="800"
+                height="800"
+                loading="lazy"
+                style="width:100%; height:100%; object-fit:cover; border-radius:0;"
+              >
+            {%- else -%}
+              {%- comment -%} Fallback SVG shown when no image has been uploaded yet {%- endcomment -%}
+              <svg class="product-img-icon" viewBox="0 0 90 90" fill="none">
+                <rect x="15" y="15" width="60" height="60" rx="12" fill="#C8E9FF"/>
+                <path d="M35 45h20M45 35v20" stroke="#5ABEFF" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="45" cy="45" r="28" stroke="#8FD3FF" stroke-width="2" stroke-dasharray="4 4"/>
+              </svg>
+            {%- endif -%}
           </a>
-          <p class="product-guarantee">🔒 30-day money-back guarantee</p>
+
+          <div class="product-body">
+
+            {%- comment -%} Title linked to product page {%- endcomment -%}
+            <h3 class="product-name">
+              <a href="{{ product.url }}" style="color:inherit;">{{ product.title }}</a>
+            </h3>
+
+            <p class="product-desc">{{ product.description | strip_html | truncate: 120 }}</p>
+
+            {%- comment -%} Up to 3 bullet points from product metafields or tags {%- endcomment -%}
+            {%- if product.tags.size > 0 -%}
+              <ul class="product-features">
+                {%- for tag in product.tags limit: 3 -%}
+                  <li>
+                    <span class="check-icon">
+                      <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                    {{ tag }}
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+
+            {%- comment -%} Price row {%- endcomment -%}
+            <div class="product-price-row">
+              <span class="price-current">{{ variant.price | money }}</span>
+              {%- if has_compare -%}
+                <span class="price-old">{{ variant.compare_at_price | money }}</span>
+                <span class="price-save">Save {{ savings | money }}</span>
+              {%- endif -%}
+            </div>
+
+            {%- comment -%}
+              Add to Cart button.
+              data-variant-id passes the first available variant ID to the JS handler.
+              If the product is unavailable the button is disabled.
+            {%- endcomment -%}
+            {%- if variant.available -%}
+              <button
+                class="btn btn-cart"
+                data-variant-id="{{ variant.id }}"
+                onclick="addToCart(this)"
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2H3.4L5.6 10H12L14 5H4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="13" r="1" fill="currentColor"/><circle cx="11" cy="13" r="1" fill="currentColor"/></svg>
+                Add to Cart
+              </button>
+            {%- else -%}
+              <button class="btn btn-cart" disabled style="opacity:0.5; cursor:not-allowed;">
+                Sold Out
+              </button>
+            {%- endif -%}
+
+            <p class="product-guarantee">🔒 30-day money-back guarantee</p>
+          </div>
         </div>
-      </div>
+
+      {%- else -%}
+        {%- comment -%} Shown only if the store has zero products — useful during setup {%- endcomment -%}
+        <p style="grid-column:1/-1; text-align:center; color:var(--text-soft); padding:60px 0;">
+          No products found. Add products to your Shopify store and they will appear here automatically.
+        </p>
+      {%- endfor -%}
 
     </div>
   </div>
@@ -1945,7 +1902,7 @@
           <li><a href="/products/migraine-relief-head-cap">Migraine Head Cap</a></li>
           <li><a href="/products/sleep-speaker">Sleep Speaker</a></li>
           <li><a href="/products/sleep-bundle-kit">Sleep Bundle Kit</a></li>
-          <li><a href="/collections/all">All Products</a></li>
+        <a href="{{ routes.all_products_collection_url }}">All Products</a>
         </ul>
       </div>
       <div class="footer-col">
@@ -1994,6 +1951,37 @@
     JAVASCRIPT
 =================================================== {%- endcomment -%}
 <script>
+/* --- Add to Cart (fetch API) --- */
+function addToCart(btn) {
+  var variantId = parseInt(btn.getAttribute('data-variant-id'), 10);
+  var originalHTML = btn.innerHTML;
+
+  btn.disabled = true;
+  btn.innerHTML = 'Adding&hellip;';
+
+  fetch('/cart/add.js', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id: variantId, quantity: 1 })
+  })
+  .then(function(r) {
+    if (r.ok) {
+      window.location.href = '/cart';
+    } else {
+      return r.json().then(function(data) {
+        alert(data.description || 'Could not add to cart. Please try again.');
+        btn.disabled = false;
+        btn.innerHTML = originalHTML;
+      });
+    }
+  })
+  .catch(function() {
+    alert('Network error. Please check your connection and try again.');
+    btn.disabled = false;
+    btn.innerHTML = originalHTML;
+  });
+}
+
 /* --- FAQ accordion --- */
 function toggleFAQ(el) {
   var isOpen = el.classList.contains('open');
@@ -2039,9 +2027,3 @@ function toggleFAQ(el) {
   tick();
 })();
 </script>
-{% schema %}
-{
-  "name": "Main Page",
-  "settings": []
-}
-{% endschema %}
