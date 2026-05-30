@@ -4,7 +4,13 @@
     <div class="product-grid">
       <div class="product-image">
         {% if product.featured_image %}
-          <img src="{{ product.featured_image | image_url: width: 1200 }}" alt="{{ product.title | escape }}">
+         {% if product.featured_image %}
+  <img
+    src="{{ product.featured_image | image_url: width: 1200 }}"
+    alt="{{ product.title | escape }}"
+    width="1200"
+    height="1200">
+{% endif %}
         {% endif %}
       </div>
       <div class="product-info">
@@ -29,7 +35,13 @@
       </div>
       <div class="product-image">
         {% if product.featured_image %}
-          <img src="{{ product.featured_image | image_url: width: 1200 }}" alt="{{ product.title | escape }}">
+         {% if product.featured_image %}
+  <img
+    src="{{ product.featured_image | image_url: width: 1200 }}"
+    alt="{{ product.title | escape }}"
+    width="1200"
+    height="1200">
+{% endif %}
         {% endif %}
       </div>
     </div>
@@ -38,7 +50,13 @@
     <div class="product-grid">
       <div class="product-image">
         {% if product.featured_image %}
-          <img src="{{ product.featured_image | image_url: width: 1200 }}" alt="{{ product.title | escape }}">
+          {% if product.featured_image %}
+  <img
+    src="{{ product.featured_image | image_url: width: 1200 }}"
+    alt="{{ product.title | escape }}"
+    width="1200"
+    height="1200">
+{% endif %}
         {% endif %}
       </div>
       <div class="product-info">
