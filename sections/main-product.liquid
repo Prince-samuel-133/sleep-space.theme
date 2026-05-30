@@ -1,21 +1,16 @@
 <div class="sleep-product">
 
   {% if product.handle == 'retractable-ice-gel-headache-relief-cap' %}
-    <!-- Migraine Cap - Image Left, Text Right -->
     <div class="product-grid">
       <div class="product-image">
         {% if product.featured_image %}
-  <img
-    src="{{ product.featured_image | image_url: width: 1200 }}"
-    alt="{{ product.title | escape }}"
-    width="1200"
-    height="1200">
-{% endif %}
+          <img src="{{ product.featured_image | image_url: width: 1200 }}" alt="{{ product.title | escape }}">
+        {% endif %}
       </div>
       <div class="product-info">
         <h1>{{ product.title }}</h1>
         <p class="price">{{ product.selected_or_first_available_variant.price | money }}</p>
-        {{ product.description }}
+        <div class="description">{{ product.description }}</div>
         <button type="button" class="add-to-cart" onclick="addToCart({{ product.variants.first.id }})">
           Add Migraine Cap to Cart
         </button>
@@ -23,38 +18,34 @@
     </div>
 
   {% elsif product.handle == 'creative-mini-ultra-thin-sleep-inducing-bluetooth-speaker' %}
-    <!-- Sleep Speaker - Image Right, Text Left -->
     <div class="product-grid reverse">
       <div class="product-info">
         <h1>{{ product.title }}</h1>
         <p class="price">{{ product.selected_or_first_available_variant.price | money }}</p>
-        {{ product.description }}
+        <div class="description">{{ product.description }}</div>
         <button type="button" class="add-to-cart" onclick="addToCart({{ product.variants.first.id }})">
           Add Sleep Speaker to Cart
         </button>
       </div>
       <div class="product-image">
-        
+        {% if product.featured_image %}
+          <img src="{{ product.featured_image | image_url: width: 1200 }}" alt="{{ product.title | escape }}">
+        {% endif %}
       </div>
     </div>
 
   {% else %}
-    <!-- Full Recovery Kit - Image Left, Text Right -->
     <div class="product-grid">
       <div class="product-image">
         {% if product.featured_image %}
-  <img
-    src="{{ product.featured_image | image_url: width: 1200 }}"
-    alt="{{ product.title | escape }}"
-    width="1200"
-    height="1200">
-{% endif %}
+          <img src="{{ product.featured_image | image_url: width: 1200 }}" alt="{{ product.title | escape }}">
+        {% endif %}
       </div>
       <div class="product-info">
         <span class="badge">Best Value • Save Money</span>
         <h1>{{ product.title }}</h1>
         <p class="price">{{ product.selected_or_first_available_variant.price | money }}</p>
-        {{ product.description }}
+        <div class="description">{{ product.description }}</div>
         <button type="button" class="add-to-cart" onclick="addToCart({{ product.variants.first.id }})">
           Add Complete Sleep Kit
         </button>
@@ -63,6 +54,112 @@
   {% endif %}
 
 </div>
+
+<style>
+  .sleep-product {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: sans-serif;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+    background: #f0f8ff;
+    border: 1px solid #b3d4f0;
+    border-radius: 16px;
+    padding: 40px;
+  }
+
+  .product-grid.reverse {
+    direction: rtl;
+  }
+
+  .product-grid.reverse > * {
+    direction: ltr;
+  }
+
+  .product-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 4px 20px rgba(0, 100, 200, 0.1);
+  }
+
+  .product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .product-info h1 {
+    font-size: 1.8rem;
+    color: #1a3c5e;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .price {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #1a7abf;
+    margin: 0;
+  }
+
+  .description {
+    color: #444;
+    line-height: 1.7;
+    font-size: 0.95rem;
+  }
+
+  .description img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-top: 10px;
+  }
+
+  .badge {
+    display: inline-block;
+    background: #1a7abf;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    width: fit-content;
+  }
+
+  .add-to-cart {
+    background: #1a3c5e;
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    width: 100%;
+  }
+
+  .add-to-cart:hover {
+    background: #0f2a45;
+  }
+
+  @media (max-width: 768px) {
+    .product-grid {
+      grid-template-columns: 1fr;
+      direction: ltr !important;
+      padding: 24px;
+      gap: 24px;
+    }
+  }
+</style>
 
 <script>
 function addToCart(variantId) {
@@ -85,3 +182,13 @@ function addToCart(variantId) {
   });
 }
 </script>
+
+{% schema %}
+{
+  "name": "t:general.product",
+  "settings": [],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}
