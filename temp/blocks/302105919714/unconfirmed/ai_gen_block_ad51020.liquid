@@ -1,6 +1,357 @@
+{% doc %}
+  @prompt
+    Create a countdown timer section for a limited time offer that counts down to 12:39 AM UTC on May 31, 2026. The timer should display hours, minutes, and seconds remaining. Style it with an urgent, eye-catching design (e.g., bold text, contrasting colors). Include a message like "⏰ Limited Time Offer – Special Recovery Kit ends in:" above the timer. When the timer reaches zero, show a "Offer Expired" message.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-countdown-timer-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, {{ block.settings.background_color_start }} 0%, {{ block.settings.background_color_end }} 100%);
+    border-radius: {{ block.settings.border_radius }}px;
+    text-align: center;
+  }
+
+  .ai-countdown-timer__message-{{ ai_gen_id }} {
+    font-size: {{ block.settings.message_font_size }}px;
+    font-weight: 700;
+    color: {{ block.settings.message_color }};
+    margin: 0 0 30px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .ai-countdown-timer__display-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .ai-countdown-timer__unit-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100px;
+  }
+
+  .ai-countdown-timer__value-{{ ai_gen_id }} {
+    font-size: {{ block.settings.timer_font_size }}px;
+    font-weight: 900;
+    color: {{ block.settings.timer_color }};
+    background-color: {{ block.settings.timer_background }};
+    padding: 20px 30px;
+    border-radius: {{ block.settings.timer_border_radius }}px;
+    min-width: 100px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border: {{ block.settings.timer_border_width }}px solid {{ block.settings.timer_border_color }};
+  }
+
+  .ai-countdown-timer__label-{{ ai_gen_id }} {
+    font-size: {{ block.settings.label_font_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.label_color }};
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .ai-countdown-timer__expired-{{ ai_gen_id }} {
+    font-size: {{ block.settings.expired_font_size }}px;
+    font-weight: 900;
+    color: {{ block.settings.expired_color }};
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 30px;
+  }
+
+  .ai-countdown-timer__hidden-{{ ai_gen_id }} {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-countdown-timer__message-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.message_font_size }}px * 0.8);
+    }
+
+    .ai-countdown-timer__value-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.timer_font_size }}px * 0.7);
+      padding: 15px 20px;
+      min-width: 70px;
+    }
+
+    .ai-countdown-timer__unit-{{ ai_gen_id }} {
+      min-width: 70px;
+    }
+
+    .ai-countdown-timer__display-{{ ai_gen_id }} {
+      gap: 10px;
+    }
+  }
+{% endstyle %}
+
+<countdown-timer-{{ ai_gen_id }}
+  class="ai-countdown-timer-{{ ai_gen_id }}"
+  data-end-time="2026-05-31T00:39:00Z"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-countdown-timer__message-{{ ai_gen_id }}">
+    {{ block.settings.message }}
+  </div>
+
+  <div class="ai-countdown-timer__display-{{ ai_gen_id }}" id="timer-display-{{ ai_gen_id }}">
+    <div class="ai-countdown-timer__unit-{{ ai_gen_id }}">
+      <div class="ai-countdown-timer__value-{{ ai_gen_id }}" id="hours-{{ ai_gen_id }}">00</div>
+      <div class="ai-countdown-timer__label-{{ ai_gen_id }}">Hours</div>
+    </div>
+    <div class="ai-countdown-timer__unit-{{ ai_gen_id }}">
+      <div class="ai-countdown-timer__value-{{ ai_gen_id }}" id="minutes-{{ ai_gen_id }}">00</div>
+      <div class="ai-countdown-timer__label-{{ ai_gen_id }}">Minutes</div>
+    </div>
+    <div class="ai-countdown-timer__unit-{{ ai_gen_id }}">
+      <div class="ai-countdown-timer__value-{{ ai_gen_id }}" id="seconds-{{ ai_gen_id }}">00</div>
+      <div class="ai-countdown-timer__label-{{ ai_gen_id }}">Seconds</div>
+    </div>
+  </div>
+
+  <div class="ai-countdown-timer__expired-{{ ai_gen_id }} ai-countdown-timer__hidden-{{ ai_gen_id }}" id="expired-{{ ai_gen_id }}">
+    {{ block.settings.expired_message }}
+  </div>
+</countdown-timer-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class CountdownTimer{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.endTime = new Date(this.dataset.endTime).getTime();
+        this.hoursEl = this.querySelector('#hours-{{ ai_gen_id }}');
+        this.minutesEl = this.querySelector('#minutes-{{ ai_gen_id }}');
+        this.secondsEl = this.querySelector('#seconds-{{ ai_gen_id }}');
+        this.timerDisplay = this.querySelector('#timer-display-{{ ai_gen_id }}');
+        this.expiredEl = this.querySelector('#expired-{{ ai_gen_id }}');
+        this.interval = null;
+      }
+
+      connectedCallback() {
+        this.updateTimer();
+        this.interval = setInterval(() => this.updateTimer(), 1000);
+      }
+
+      disconnectedCallback() {
+        if (this.interval) {
+          clearInterval(this.interval);
+        }
+      }
+
+      updateTimer() {
+        const now = new Date().getTime();
+        const distance = this.endTime - now;
+
+        if (distance < 0) {
+          this.showExpired();
+          return;
+        }
+
+        const hours = Math.floor(distance / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        this.hoursEl.textContent = String(hours).padStart(2, '0');
+        this.minutesEl.textContent = String(minutes).padStart(2, '0');
+        this.secondsEl.textContent = String(seconds).padStart(2, '0');
+      }
+
+      showExpired() {
+        if (this.interval) {
+          clearInterval(this.interval);
+        }
+        this.timerDisplay.classList.add('ai-countdown-timer__hidden-{{ ai_gen_id }}');
+        this.expiredEl.classList.remove('ai-countdown-timer__hidden-{{ ai_gen_id }}');
+      }
+    }
+
+    customElements.define('countdown-timer-{{ ai_gen_id }}', CountdownTimer{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Countdown timer",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "message",
+      "label": "Message",
+      "default": "⏰ Limited Time Offer – Special Recovery Kit ends in:"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "expired_message",
+      "label": "Expired message",
+      "default": "🚫 Offer Expired"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "background_color_start",
+      "label": "Gradient start color",
+      "default": "#FF4444"
+    },
+    {
+      "type": "color",
+      "id": "background_color_end",
+      "label": "Gradient end color",
+      "default": "#CC0000"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Message style"
+    },
+    {
+      "type": "range",
+      "id": "message_font_size",
+      "label": "Font size",
+      "min": 14,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "message_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Timer style"
+    },
+    {
+      "type": "range",
+      "id": "timer_font_size",
+      "label": "Font size",
+      "min": 24,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "color",
+      "id": "timer_color",
+      "label": "Text color",
+      "default": "#FF4444"
+    },
+    {
+      "type": "color",
+      "id": "timer_background",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "timer_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "timer_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 3
+    },
+    {
+      "type": "color",
+      "id": "timer_border_color",
+      "label": "Border color",
+      "default": "#FFCCCC"
+    },
+    {
+      "type": "header",
+      "content": "Label style"
+    },
+    {
+      "type": "range",
+      "id": "label_font_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Expired message style"
+    },
+    {
+      "type": "range",
+      "id": "expired_font_size",
+      "label": "Font size",
+      "min": 20,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "color",
+      "id": "expired_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Countdown timer"
+    }
+  ]
+}
 {% endschema %}
