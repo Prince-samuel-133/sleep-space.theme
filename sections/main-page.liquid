@@ -1338,32 +1338,17 @@
       </div>
     </div>
     <div class="hero-visual">
-  <div class="hero-product-card">
-    
-    <div class="floating-badge">BEST SELLER</div>
-
-    <div class="hero-img-placeholder">
-
-      {% if section.settings.hero_image %}
-        <img
-          src="{{ section.settings.hero_image | image_url: width: 1200 }}"
-          alt="{{ section.settings.hero_image.alt | escape }}"
-          class="hero-image"
-          width="1200"
-          height="1200">
-      {% else %}
-        <img
-          src="https://via.placeholder.com/600x600?text=Sleep+Product"
-          alt="Hero placeholder"
-          class="hero-image"
-          width="600"
-          height="600">
-      {% endif %}
-
-    </div>
-
-  </div>
-</div>
+      <div class="hero-product-card">
+        <div class="floating-badge">BEST SELLER</div>
+        <div class="hero-img-placeholder">
+          <svg class="product-icon-large" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="50" cy="55" rx="38" ry="28" fill="#B8E4FF"/>
+            <path d="M18 50C18 36 32 24 50 24C68 24 82 36 82 50" stroke="#5ABEFF" stroke-width="4" stroke-linecap="round"/>
+            <rect x="30" y="48" width="40" height="22" rx="11" fill="#5ABEFF" opacity="0.7"/>
+            <circle cx="50" cy="59" r="8" fill="#1A7FC1"/>
+            <path d="M44 59C44 55.7 46.7 53 50 53C53.3 53 56 55.7 56 59" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
         <div class="hero-card-info">
           <div class="hero-card-name">Sleep Bundle Kit</div>
           <div class="hero-card-desc">Complete sleep + migraine relief system</div>
