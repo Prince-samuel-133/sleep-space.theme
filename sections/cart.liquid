@@ -1,64 +1,91 @@
-also this {% comment %}
-  Cart section - fixed version
+{% comment %}
+  Cart section
 {% endcomment %}
 
 <h1>Your Cart</h1>
 
 {% if cart.item_count == 0 %}
-  <p>Your cart is empty. <a href="/collections/all">Continue shopping</a></p>
+  <p>
+    Your cart is empty.
+    <a href="{{ routes.all_products_collection_url }}">Continue shopping</a>
+  </p>
 {% else %}
 
-  <form action="{{ routes.cart_url }}" method="post">
-    <table>
+<form action="{{ routes.cart_url }}" method="post">
+
+  <table>
+    <tbody>
       {% for item in cart.items %}
         <tr>
+
           <td>
             {% if item.image %}
               <a href="{{ item.url }}">
                 <img
                   src="{{ item.image | image_url: width: 100 }}"
-                  alt="{{ item.image.alt | escape }}"
+                  alt="{{ item.product.title | escape }}"
                   width="100"
-                  loading="lazy"
-                >
+                  height="100"
+                  loading="lazy">
               </a>
             {% endif %}
           </td>
+
           <td>
-            <p><a href="{{ item.url }}">{{ item.product.title }}</a></p>
-            <p>{{ item.variant.title }}</p>
+            <p>
+              <a href="{{ item.url }}">
+                {{ item.product.title }}
+              </a>
+            </p>
+
+            {% unless item.variant.title == 'Default Title' %}
+              <p>{{ item.variant.title }}</p>
+            {% endunless %}
+
             <a href="{{ item.url_to_remove }}">Remove</a>
           </td>
+
           <td>
             <input
               type="number"
               name="updates[]"
               value="{{ item.quantity }}"
-              min="0"
-            >
+              min="0">
           </td>
+
           <td>
-            <p>{{ item.final_line_price | money }}</p>
+            {{ item.final_line_price | money }}
           </td>
+
         </tr>
       {% endfor %}
-    </table>
+    </tbody>
+  </table>
 
-    <p><strong>Total: {{ cart.total_price | money }}</strong></p>
+  <p>
+    <strong>Total: {{ cart.total_price | money }}</strong>
+  </p>
 
-    <button type="submit" name="update">Update Cart</button>
+  <button type="submit" name="update">
+    Update Cart
+  </button>
 
-    <a href="/checkout" class="checkout-button">
-      Proceed to Checkout
-    </a>
+  <button type="submit" name="checkout">
+    Proceed to Checkout
+  </button>
 
-  </form>
+</form>
 
 {% endif %}
 
 {% schema %}
 {
-  "name": "t:general.cart",
-  "settings": []
+  "name": "Cart",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Cart"
+    }
+  ]
 }
 {% endschema %}
