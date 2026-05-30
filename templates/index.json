@@ -12,9 +12,43 @@
     "main_page": {
       "type": "main-page",
       "settings": {}
+    },
+    "17801564326ad3592d": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_ad51020_mVagzm": {
+          "type": "ai_gen_block_ad51020",
+          "settings": {
+            "message": "⏰ Limited Time Offer – Special Recovery Kit ends in:",
+            "expired_message": "🚫 Offer Expired",
+            "desktop_width_percent": 100,
+            "background_color_start": "#FF4444",
+            "background_color_end": "#CC0000",
+            "border_radius": 12,
+            "message_font_size": 24,
+            "message_color": "#FFFFFF",
+            "timer_font_size": 48,
+            "timer_color": "#FF4444",
+            "timer_background": "#FFFFFF",
+            "timer_border_radius": 8,
+            "timer_border_width": 3,
+            "timer_border_color": "#FFCCCC",
+            "label_font_size": 14,
+            "label_color": "#FFFFFF",
+            "expired_font_size": 36,
+            "expired_color": "#FFFFFF"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_ad51020_mVagzm"
+      ],
+      "settings": {}
     }
   },
   "order": [
-    "main_page"
+    "main_page",
+    "17801564326ad3592d"
   ]
 }
