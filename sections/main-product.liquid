@@ -217,6 +217,103 @@
       font-size: 1.4rem;
     }
   }
+
+  /* ===== SLEEP SPACE — Product Page CSS (Corrected) ===== */
+
+/* --- Page Background --- */
+body {
+  background-color: #f0f6fb;
+}
+
+/* --- Product Images --- */
+.product-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.product-image {
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(58, 107, 138, 0.15);
+  max-width: 100%;
+}
+
+/* --- Product Info --- */
+.product-info {
+  padding: 1.5rem;
+}
+
+.product-info h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #1a2e3b;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.product-info p:first-of-type {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #3a6b8a;
+  margin-bottom: 1rem;
+}
+
+.product-info p:last-of-type {
+  font-size: 1rem;
+  color: #4a5568;
+  line-height: 1.8;
+}
+
+/* --- Product Form --- */
+.product-form {
+  padding: 1.5rem;
+}
+
+.product-form select {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #3a6b8a;
+  border-radius: 8px;
+  color: #1a2e3b;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  background-color: #ffffff;
+}
+
+.product-form input[type="text"] {
+  width: 80px;
+  padding: 10px;
+  border: 2px solid #d0e4f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* --- Add to Cart Button --- */
+.product-form input[type="submit"] {
+  display: block;
+  width: 100%;
+  background-color: #3a6b8a;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 16px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-bottom: 1rem;
+}
+
+.product-form input[type="submit"]:hover {
+  background-color: #2a5070;
+  transform: translateY(-2px);
+}
+
 </style>
 
 <script>
