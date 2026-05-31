@@ -1,245 +1,45 @@
-<div class="sleep-product">
+{% comment %}
+  This section is used in the product template to render product page with
+  media, content, and add-to-cart form.
 
-  {% if product.handle == 'retractable-ice-gel-headache-relief-cap' %}
-    <div class="product-grid">
-      <div class="product-image">
-        {% if product.featured_image %}
-      {% if product.featured_image %}
-  <img
-    src="{{ product.featured_image | image_url: width: 1200 }}"
-    alt="{{ product.title | escape }}"
-    width="1200"
-    height="1200">
-{% endif %}
-        {% endif %}
-      </div>
-      <div class="product-info">
-        <h1>{{ product.title }}</h1>
-        <p class="price">{{ product.selected_or_first_available_variant.price | money }}</p>
-        <div class="description">{{ product.description }}</div>
-        <button type="button" class="add-to-cart" onclick="addToCart({{ product.variants.first.id }})">
-          Add Migraine Cap to Cart
-        </button>
-      </div>
-    </div>
+  https://shopify.dev/docs/storefronts/themes/architecture/templates/product
+{% endcomment %}
 
-  {% elsif product.handle == 'creative-mini-ultra-thin-sleep-inducing-bluetooth-speaker' %}
-    <div class="product-grid reverse">
-      <div class="product-info">
-        <h1>{{ product.title }}</h1>
-        <p class="price">{{ product.selected_or_first_available_variant.price | money }}</p>
-        <div class="description">{{ product.description }}</div>
-        <button type="button" class="add-to-cart" onclick="addToCart({{ product.variants.first.id }})">
-          Add Sleep Speaker to Cart
-        </button>
-      </div>
-      <div class="product-image">
-        {% if product.featured_image %}
-         {% if product.featured_image %}
-  <img
-    src="{{ product.featured_image | image_url: width: 1200 }}"
-    alt="{{ product.title | escape }}"
-    width="1200"
-    height="1200">
-{% endif %}
-        {% endif %}
-      </div>
-    </div>
-
-  {% else %}
-    <div class="product-grid">
-      <div class="product-image">
-        {% if product.featured_image %}
-          {% if product.featured_image %}
-  <img
-    src="{{ product.featured_image | image_url: width: 1200 }}"
-    alt="{{ product.title | escape }}"
-    width="1200"
-    height="1200">
-{% endif %}
-        {% endif %}
-      </div>
-      <div class="product-info">
-        <span class="badge">Best Value • Save Money</span>
-        <h1>{{ product.title }}</h1>
-        <p class="price">{{ product.selected_or_first_available_variant.price | money }}</p>
-        <div class="description">{{ product.description }}</div>
-        <button type="button" class="add-to-cart" onclick="addToCart({{ product.variants.first.id }})">
-          Add Complete Sleep Kit
-        </button>
-      </div>
-    </div>
-  {% endif %}
-
+<div class="product-images">
+  {% for image in product.images %}
+    {% render 'image', class: 'product-image', image: image %}
+  {% endfor %}
 </div>
 
-<style>
-  .sleep-product {
-    max-width: 1100px;
-    margin: 60px auto;
-    padding: 0 24px;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-  }
+<div class="product-info">
+  <h1>{{ product.title }}</h1>
+  <p>{{ product.price | money }}</p>
+  <p>{{ product.description }}</p>
+</div>
 
-  .product-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-    background: #f0f8ff;
-    border: 1px solid #b3d4f0;
-    border-radius: 20px;
-    padding: 50px;
-  }
+<div class="product-form">
+  {% form 'product', product %}
+    {% assign current_variant = product.selected_or_first_available_variant %}
 
-  .product-grid.reverse {
-    direction: rtl;
-  }
+    <select name="id">
+      {% for variant in product.variants %}
+        <option
+          value="{{ variant.id }}"
+          {% if variant == current_variant %}
+            selected="selected"
+          {% endif %}
+        >
+          {{ variant.title }} - {{ variant.price | money }}
+        </option>
+      {% endfor %}
+    </select>
 
-  .product-grid.reverse > * {
-    direction: ltr;
-  }
+    <input type="text" name="quantity" min="1" value="1">
 
-  /* Image */
-  .product-image {
-    width: 100%;
-  }
-
-  .product-image img {
-    width: 100%;
-    height: 450px;
-    object-fit: cover;
-    border-radius: 16px;
-    box-shadow: 0 8px 30px rgba(0, 100, 200, 0.12);
-    display: block;
-  }
-
-  /* Info */
-  .product-info {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .product-info h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #1a3c5e;
-    margin: 0;
-    line-height: 1.3;
-  }
-
-  .price {
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: #1a7abf;
-    margin: 0;
-  }
-
-  /* Description */
-  .description {
-    color: #4a5568;
-    font-size: 0.95rem;
-    line-height: 1.8;
-    border-top: 1px solid #b3d4f0;
-    padding-top: 16px;
-  }
-
-  .description p {
-    margin: 0 0 10px 0;
-  }
-
-  .description b, .description strong {
-    color: #1a3c5e;
-  }
-
-  .description img {
-    display: none;
-  }
-
-  /* Badge */
-  .badge {
-    display: inline-block;
-    background: linear-gradient(135deg, #1a7abf, #1a3c5e);
-    color: white;
-    padding: 8px 18px;
-    border-radius: 25px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    width: fit-content;
-  }
-
-  /* Button */
-  .add-to-cart {
-    background: #1a3c5e;
-    color: white;
-    border: none;
-    padding: 18px 32px;
-    border-radius: 10px;
-    font-size: 1.05rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    width: 100%;
-    letter-spacing: 0.3px;
-    margin-top: 8px;
-  }
-
-  .add-to-cart:hover {
-    background: #0f2a45;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 15px rgba(26, 60, 94, 0.3);
-  }
-
-  .add-to-cart:active {
-    transform: translateY(0);
-  }
-
-  /* Mobile */
-  @media (max-width: 768px) {
-    .product-grid {
-      grid-template-columns: 1fr;
-      direction: ltr !important;
-      padding: 28px;
-      gap: 28px;
-    }
-
-    .product-image img {
-      height: 300px;
-    }
-
-    .product-info h1 {
-      font-size: 1.5rem;
-    }
-
-    .price {
-      font-size: 1.4rem;
-    }
-  }
-</style>
-
-<script>
-function addToCart(variantId) {
-  fetch('/cart/add.js', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ id: variantId, quantity: 1 })
-  })
-  .then(response => {
-    if (response.ok) {
-      window.location.href = '/cart';
-    } else {
-      return response.json().then(data => {
-        alert('Could not add to cart: ' + (data.description || 'Please try again.'));
-      });
-    }
-  })
-  .catch(() => {
-    alert('Something went wrong. Please try again.');
-  });
-}
-</script>
+    <input type="submit" value="Add to cart">
+    {{ form | payment_button }}
+  {% endform %}
+</div>
 
 {% schema %}
 {

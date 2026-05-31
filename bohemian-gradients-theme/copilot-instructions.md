@@ -1,1 +1,0 @@
-/home/brayden/Downloads/sleep space/bohemian-gradients-theme/AGENTS.md
