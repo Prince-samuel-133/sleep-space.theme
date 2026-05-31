@@ -80,3 +80,93 @@
 @media (max-width: 768px) {
   .hero-content h1 { font-size: 2.8rem; }
 }
+/* ===== SLEEP SPACE — Premium Product Page CSS ===== */
+
+/* --- Page Background --- */
+.main-page-wrapper,
+.product {
+  background-color: #f0f6fb;
+}
+
+/* --- Product Title --- */
+.product__title,
+h1.product__title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #1a2e3b;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+/* --- Price --- */
+.price__regular .price-item,
+.price__sale .price-item {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #3a6b8a;
+}
+
+/* --- Product Description --- */
+.product__description {
+  font-size: 1rem;
+  color: #4a5568;
+  line-height: 1.8;
+  margin-top: 1rem;
+}
+
+/* --- Add to Cart Button --- */
+.product-form__submit,
+button[name="add"] {
+  background-color: #3a6b8a;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 16px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+}
+
+.product-form__submit:hover,
+button[name="add"]:hover {
+  background-color: #2a5070;
+  transform: translateY(-2px);
+}
+
+/* --- Product Image --- */
+.product__media img,
+.product-media-container img {
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(58, 107, 138, 0.15);
+}
+
+/* --- Variant Selectors --- */
+.variant-input-wrapper label,
+.product-form__input label {
+  border: 2px solid #3a6b8a;
+  border-radius: 6px;
+  color: #3a6b8a;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.variant-input-wrapper input:checked + label,
+.product-form__input input:checked + label {
+  background-color: #3a6b8a;
+  color: #ffffff;
+}
+
+/* --- Section Spacing --- */
+.product__info-container {
+  padding: 2rem 1.5rem;
+}
+
+/* --- Dividers --- */
+.product__info-container hr {
+  border-color: #d0e4f0;
+  margin: 1.5rem 0;
+}
